@@ -1131,18 +1131,19 @@
       bottom: 0;
       left: 0;
       right: 0;
+      height: 64px;
       background: var(--white);
       border-top: 1px solid var(--border);
-      z-index: 99999;
-      box-shadow: 0 -2px 16px rgba(0, 0, 0, 0.07);
-      padding-bottom: env(safe-area-inset-bottom, 0px);
+      z-index: 1000;
+      padding: 0 0.5rem;
+      padding-bottom: env(safe-area-inset-bottom);
     }
 
     .bottom-nav-inner {
       display: flex;
-      align-items: stretch;
+      align-items: center;
       justify-content: space-around;
-      height: 72px;
+      height: 100%;
     }
 
     .bottom-nav-item {
@@ -1150,22 +1151,14 @@
       flex-direction: column;
       align-items: center;
       justify-content: center;
-      gap: 5px;
+      gap: 3px;
       flex: 1;
+      height: 100%;
       cursor: pointer;
       color: var(--text3);
-      background: none;
-      border: none;
-      padding: 10px 4px;
-      touch-action: manipulation;
+      transition: color 0.15s;
       -webkit-tap-highlight-color: transparent;
       user-select: none;
-      transition: opacity 0.1s;
-      font-family: inherit;
-    }
-
-    .bottom-nav-item:active {
-      opacity: 0.5;
     }
 
     .bottom-nav-item.active {
@@ -1173,16 +1166,14 @@
     }
 
     .bottom-nav-icon {
-      font-size: 1.7rem;
+      font-size: 1.3rem;
       line-height: 1;
-      pointer-events: none;
     }
 
     .bottom-nav-label {
-      font-size: 0.73rem;
+      font-size: 0.62rem;
       font-weight: 600;
-      white-space: nowrap;
-      pointer-events: none;
+      letter-spacing: 0.02em;
     }
 
     /* ── MOBILE ≤768px ──────────────────────────────────────────────── */
@@ -1428,6 +1419,263 @@
       font-weight: 800;
       letter-spacing: -0.03em;
     }
+
+    /* ═══ AI CHAT PAGE ═══════════════════════════════════════════════ */
+    .ai-chat-wrap {
+      display: flex;
+      flex-direction: column;
+      height: calc(100vh - 140px);
+      background: var(--white);
+      border-radius: var(--r);
+      border: 1px solid var(--border);
+      box-shadow: var(--shadow);
+      overflow: hidden;
+    }
+
+    .ai-chat-header {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      padding: 1rem 1.25rem;
+      border-bottom: 1px solid var(--border);
+      background: var(--white);
+      flex-shrink: 0;
+    }
+
+    .ai-chat-avatar {
+      width: 42px;
+      height: 42px;
+      background: linear-gradient(135deg, #667eea, #764ba2);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.2rem;
+      flex-shrink: 0;
+    }
+
+    .ai-chat-name {
+      font-size: 0.95rem;
+      font-weight: 700;
+    }
+
+    .ai-chat-sub {
+      font-size: 0.72rem;
+      color: var(--green);
+      font-weight: 500;
+    }
+
+    /* Suggestion chips */
+    .ai-chips {
+      display: flex;
+      gap: 0.5rem;
+      padding: 0.75rem 1rem;
+      overflow-x: auto;
+      scrollbar-width: none;
+      border-bottom: 1px solid var(--border);
+      flex-shrink: 0;
+      background: var(--bg);
+    }
+
+    .ai-chips::-webkit-scrollbar {
+      display: none;
+    }
+
+    .ai-chip {
+      white-space: nowrap;
+      background: var(--white);
+      border: 1.5px solid var(--border);
+      border-radius: 20px;
+      padding: 0.35rem 0.875rem;
+      font-size: 0.75rem;
+      font-weight: 600;
+      color: var(--text);
+      cursor: pointer;
+      font-family: inherit;
+      transition: all 0.15s;
+      touch-action: manipulation;
+    }
+
+    .ai-chip:hover {
+      border-color: var(--blue);
+      color: var(--blue);
+      background: #f0f6ff;
+    }
+
+    .ai-chip:active {
+      opacity: 0.6;
+    }
+
+    /* Chat feed */
+    .ai-chat-feed {
+      flex: 1;
+      overflow-y: auto;
+      padding: 1rem;
+      display: flex;
+      flex-direction: column;
+      gap: 0.75rem;
+      -webkit-overflow-scrolling: touch;
+    }
+
+    /* Welcome screen */
+    .ai-welcome {
+      text-align: center;
+      margin: auto;
+      padding: 2rem 1rem;
+    }
+
+    .ai-welcome-icon {
+      font-size: 3rem;
+      margin-bottom: 0.75rem;
+    }
+
+    .ai-welcome-title {
+      font-size: 1rem;
+      font-weight: 700;
+      margin-bottom: 0.5rem;
+    }
+
+    .ai-welcome-sub {
+      font-size: 0.82rem;
+      color: var(--text2);
+      line-height: 1.5;
+      max-width: 280px;
+      margin: 0 auto;
+    }
+
+    /* Chat bubbles */
+    .ai-bubble {
+      max-width: 85%;
+      padding: 0.75rem 1rem;
+      border-radius: 18px;
+      font-size: 0.875rem;
+      line-height: 1.6;
+      white-space: pre-wrap;
+      word-break: break-word;
+    }
+
+    .ai-bubble-user {
+      background: var(--blue);
+      color: white;
+      align-self: flex-end;
+      border-bottom-right-radius: 4px;
+    }
+
+    .ai-bubble-ai {
+      background: var(--bg);
+      color: var(--text);
+      align-self: flex-start;
+      border-bottom-left-radius: 4px;
+      border: 1px solid var(--border);
+    }
+
+    /* Typing indicator */
+    .ai-typing {
+      display: flex;
+      align-items: center;
+      gap: 5px;
+      padding: 0.5rem 1rem;
+      flex-shrink: 0;
+    }
+
+    .ai-typing-dot {
+      width: 7px;
+      height: 7px;
+      background: var(--text3);
+      border-radius: 50%;
+      animation: typingBounce 1.2s infinite ease-in-out;
+    }
+
+    .ai-typing-dot:nth-child(2) {
+      animation-delay: 0.2s;
+    }
+
+    .ai-typing-dot:nth-child(3) {
+      animation-delay: 0.4s;
+    }
+
+    @keyframes typingBounce {
+
+      0%,
+      60%,
+      100% {
+        transform: translateY(0);
+      }
+
+      30% {
+        transform: translateY(-6px);
+      }
+    }
+
+    /* Input bar */
+    .ai-input-bar {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      padding: 0.75rem 1rem;
+      border-top: 1px solid var(--border);
+      background: var(--white);
+      flex-shrink: 0;
+    }
+
+    .ai-input {
+      flex: 1;
+      border: 1.5px solid var(--border);
+      border-radius: 22px;
+      padding: 0.6rem 1rem;
+      font-family: inherit;
+      font-size: 0.875rem;
+      outline: none;
+      transition: border-color 0.15s;
+      background: var(--bg);
+    }
+
+    .ai-input:focus {
+      border-color: var(--blue);
+      background: var(--white);
+    }
+
+    .ai-send-btn {
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      background: var(--blue);
+      color: white;
+      border: none;
+      font-size: 1rem;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+      transition: background 0.15s, opacity 0.15s;
+      touch-action: manipulation;
+    }
+
+    .ai-send-btn:hover {
+      background: #0066dd;
+    }
+
+    .ai-send-btn:active {
+      opacity: 0.7;
+    }
+
+    .ai-send-btn:disabled {
+      background: var(--border);
+      cursor: not-allowed;
+    }
+
+    @media (max-width: 768px) {
+      .ai-chat-wrap {
+        height: calc(100dvh - 180px);
+        border-radius: 14px;
+      }
+
+      .ai-bubble {
+        max-width: 92%;
+        font-size: 0.82rem;
+      }
+    }
   </style>
 </head>
 
@@ -1452,6 +1700,9 @@
       </div>
       <div class="nav-link" data-page="trends">
         <div class="nav-icon">📈</div> Trends
+      </div>
+      <div class="nav-link" data-page="ai">
+        <div class="nav-icon">🤖</div> AI Insights
       </div>
     </nav>
 
@@ -1517,6 +1768,7 @@
       <button class="page-tab" data-page="income">Income</button>
       <button class="page-tab" data-page="expenses">Expenses</button>
       <button class="page-tab" data-page="trends">Trends</button>
+      <button class="page-tab" data-page="ai">🤖 AI</button>
     </div>
 
     <!-- ── OVERVIEW PAGE ─────────────────────────────────────────── -->
@@ -1637,6 +1889,56 @@
         <div id="catBreakdown">
           <div class="empty-msg">No expense data yet.</div>
         </div>
+      </div>
+    </div>
+
+    <!-- ── AI INSIGHTS PAGE ─────────────────────────────────────── -->
+    <div class="page" id="page-ai">
+      <div class="ai-chat-wrap">
+
+        <!-- Header -->
+        <div class="ai-chat-header">
+          <div class="ai-chat-avatar">🤖</div>
+          <div>
+            <div class="ai-chat-name">Finflow AI</div>
+            <div class="ai-chat-sub">Powered by AI · Knows your finances</div>
+          </div>
+        </div>
+
+        <!-- Quick suggestion chips -->
+        <div class="ai-chips">
+          <button class="ai-chip" onclick="askQuickAI('How can I save more money based on my spending?')">💡 Save
+            more</button>
+          <button class="ai-chip" onclick="askQuickAI('Where am I overspending the most?')">⚠️ Overspending</button>
+          <button class="ai-chip" onclick="askQuickAI('Give me a monthly budget plan based on my income.')">📋 Budget
+            plan</button>
+          <button class="ai-chip" onclick="askQuickAI('Am I in good financial health? Give me an honest review.')">❤️
+            Health check</button>
+        </div>
+
+        <!-- Chat feed -->
+        <div class="ai-chat-feed" id="aiChatFeed">
+          <div class="ai-welcome">
+            <div class="ai-welcome-icon">🤖</div>
+            <div class="ai-welcome-title">Hi! I'm your AI finance assistant</div>
+            <div class="ai-welcome-sub">I can see all your transactions and spending patterns. Ask me anything about
+              your finances!</div>
+          </div>
+        </div>
+
+        <!-- Typing indicator -->
+        <div class="ai-typing" id="aiTyping" style="display:none">
+          <div class="ai-typing-dot"></div>
+          <div class="ai-typing-dot"></div>
+          <div class="ai-typing-dot"></div>
+        </div>
+
+        <!-- Input bar -->
+        <div class="ai-input-bar">
+          <input class="ai-input" id="aiChatInput" placeholder="Ask about your finances..." autocomplete="off" />
+          <button class="ai-send-btn" id="aiSendBtn" onclick="sendAIMessage()">➤</button>
+        </div>
+
       </div>
     </div>
 
@@ -1805,6 +2107,7 @@
       if (page === 'income') renderIncomePage();
       if (page === 'expenses') renderExpensePage();
       if (page === 'trends') renderTrends(income, expense);
+      // AI page needs no render — it's dynamic on demand
     }
 
     document.querySelectorAll('.nav-link').forEach(el => el.addEventListener('click', () => goPage(el.dataset.page)));
@@ -2172,27 +2475,161 @@
       smooth(genWave(2, 0.20, 0.30), '#f7a072', '#f5d772');
     }
 
+    // ═══════════════════════════════════════════════════════════════════
+    // AI INSIGHTS
+    // ═══════════════════════════════════════════════════════════════════
+    const GEMINI_MODEL = 'llama-3.3-70b-versatile';
+    const GEMINI_KEY = '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'; // ← paste your Groq key here
+
+    function buildFinancialContext() {
+      const income = txs.filter(t => t.type === 'income').reduce((s, t) => s + t.amount, 0);
+      const expense = txs.filter(t => t.type === 'expense').reduce((s, t) => s + t.amount, 0);
+      const balance = income - expense;
+
+      const catMap = {};
+      txs.filter(t => t.type === 'expense').forEach(t => {
+        catMap[t.cat] = (catMap[t.cat] || 0) + t.amount;
+      });
+      const catBreakdown = Object.entries(catMap)
+        .sort((a, b) => b[1] - a[1])
+        .map(([cat, amt]) => `  - ${cat}: ₹${amt.toLocaleString('en-IN')}`)
+        .join('\n');
+
+      const recentTxs = txs.slice(0, 10).map(t =>
+        `  - ${t.type === 'income' ? '+' : '-'}₹${t.amount} | ${t.cat} | ${t.desc} | ${dateLabel(t.date)}`
+      ).join('\n');
+
+      return `You are a helpful personal finance assistant for an Indian user. Here is their financial data:
+Total Income: ₹${income.toLocaleString('en-IN')}
+Total Expenses: ₹${expense.toLocaleString('en-IN')}
+Net Balance: ₹${balance.toLocaleString('en-IN')}
+Transactions: ${txs.length}
+
+Expense breakdown:
+${catBreakdown || '  No expenses yet'}
+
+Recent transactions:
+${recentTxs || '  No transactions yet'}
+
+Give friendly, specific, actionable advice in Indian context. Keep responses concise and clear.`;
+    }
+
+    let aiChatHistory = [];
+
+    async function sendAIMessage() {
+      const input = document.getElementById('aiChatInput');
+      const q = input.value.trim();
+      if (!q) return;
+
+      input.value = '';
+      appendChatMessage('user', q);
+      setAIChatLoading(true);
+
+      const context = buildFinancialContext();
+      const messages = [
+        { role: 'system', parts: [{ text: context }] },
+        { role: 'model', parts: [{ text: 'Got it! I have your financial data. How can I help you?' }] },
+        ...aiChatHistory,
+        { role: 'user', parts: [{ text: q }] }
+      ];
+
+      try {
+        const res = await fetch(
+          'https://api.groq.com/openai/v1/chat/completions',
+          {
+            method: 'POST',
+            headers: {
+              'Content-Type': 'application/json',
+              'Authorization': `Bearer ${GEMINI_KEY}`
+            },
+            body: JSON.stringify({
+              model: GEMINI_MODEL,
+              messages: messages.map(m => ({
+                role: m.role === 'model' ? 'assistant' : m.role,
+                content: m.parts[0].text
+              })),
+              temperature: 0.7,
+              max_tokens: 1024
+            })
+          }
+        );
+
+        const data = await res.json();
+        if (data.error) {
+          appendChatMessage('ai', '❌ ' + (data.error.message || 'Something went wrong. Please try again.'));
+        } else {
+          const reply = data.choices?.[0]?.message?.content || 'Sorry, I could not get a response.';
+          appendChatMessage('ai', reply);
+          aiChatHistory.push({ role: 'user', parts: [{ text: q }] });
+          aiChatHistory.push({ role: 'model', parts: [{ text: reply }] });
+          // Keep history manageable
+          if (aiChatHistory.length > 20) aiChatHistory = aiChatHistory.slice(-20);
+        }
+      } catch (e) {
+        appendChatMessage('ai', '❌ Network error. Please check your connection and try again.');
+      } finally {
+        setAIChatLoading(false);
+      }
+    }
+
+    function appendChatMessage(role, text) {
+      const feed = document.getElementById('aiChatFeed');
+      // Remove welcome message if present
+      const welcome = feed.querySelector('.ai-welcome');
+      if (welcome) welcome.remove();
+
+      const bubble = document.createElement('div');
+      bubble.className = 'ai-bubble ai-bubble-' + role;
+      bubble.textContent = text;
+      feed.appendChild(bubble);
+      feed.scrollTop = feed.scrollHeight;
+    }
+
+    function setAIChatLoading(show) {
+      const btn = document.getElementById('aiSendBtn');
+      const loading = document.getElementById('aiTyping');
+      btn.disabled = show;
+      btn.textContent = show ? '...' : '➤';
+      loading.style.display = show ? 'flex' : 'none';
+      if (show) document.getElementById('aiChatFeed').scrollTop = 999999;
+    }
+
+    function askQuickAI(q) {
+      document.getElementById('aiChatInput').value = q;
+      sendAIMessage();
+    }
+
+    document.addEventListener('keydown', function (e) {
+      if (e.key === 'Enter' && document.activeElement.id === 'aiChatInput') {
+        sendAIMessage();
+      }
+    });
+
     window.addEventListener('resize', () => { if (activePage === 'overview') drawWave(); });
   </script>
 
   <!-- ═══ BOTTOM NAV (mobile) ════════════════════════════════════ -->
-  <nav class="bottom-nav" id="bottomNav">
+  <nav class="bottom-nav">
     <div class="bottom-nav-inner">
       <button class="bottom-nav-item active" data-page="overview" onclick="goPage('overview')">
-        <span class="bottom-nav-icon">&#127968;</span>
+        <span class="bottom-nav-icon">🏠</span>
         <span class="bottom-nav-label">Overview</span>
       </button>
       <button class="bottom-nav-item" data-page="income" onclick="goPage('income')">
-        <span class="bottom-nav-icon">&#128176;</span>
+        <span class="bottom-nav-icon">💰</span>
         <span class="bottom-nav-label">Income</span>
       </button>
       <button class="bottom-nav-item" data-page="expenses" onclick="goPage('expenses')">
-        <span class="bottom-nav-icon">&#128184;</span>
+        <span class="bottom-nav-icon">💸</span>
         <span class="bottom-nav-label">Expenses</span>
       </button>
       <button class="bottom-nav-item" data-page="trends" onclick="goPage('trends')">
-        <span class="bottom-nav-icon">&#128200;</span>
+        <span class="bottom-nav-icon">📈</span>
         <span class="bottom-nav-label">Trends</span>
+      </button>
+      <button class="bottom-nav-item" data-page="ai" onclick="goPage('ai')">
+        <span class="bottom-nav-icon">🤖</span>
+        <span class="bottom-nav-label">AI</span>
       </button>
     </div>
   </nav>
